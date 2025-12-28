@@ -51,6 +51,8 @@ class Steve(val bitmap: Bitmap) {
 
     private val drawListBuffer: ShortBuffer
 
+    var drawLayers = true
+
     init {
         val vertexShader: Int = loadShader(GLES31.GL_VERTEX_SHADER, vertexShaderCode)
         val fragmentShader: Int = loadShader(GLES31.GL_FRAGMENT_SHADER, fragmentShaderCode)
@@ -134,9 +136,11 @@ class Steve(val bitmap: Bitmap) {
             GLES31.glUniform1i(textureHandle, 0)
         }
 
+        val count = if (drawLayers) steveModelDrawOrder.size else 216
+
         GLES31.glDrawElements(
             GLES31.GL_TRIANGLES,
-            steveModelDrawOrder.size,
+            count,
             GLES31.GL_UNSIGNED_SHORT,
             drawListBuffer
         )

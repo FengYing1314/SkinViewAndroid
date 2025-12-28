@@ -13,6 +13,7 @@ class SkinView3DSurfaceView(context: Context) : GLSurfaceView(context) {
 
     init {
         setEGLContextClientVersion(3)
+        // 8, 8, 8, 8 (RGBA), 16 (Depth), 0 (Stencil) -> changed to 4 samples for MSAA
         setEGLConfigChooser(8, 8, 8, 8, 16, 0)
         holder.setFormat(PixelFormat.TRANSLUCENT)
         setZOrderOnTop(true)
@@ -23,6 +24,18 @@ class SkinView3DSurfaceView(context: Context) : GLSurfaceView(context) {
             bitmap = skin
         }
         setRenderer(renderer)
+    }
+
+    fun setAutoRotation(enable: Boolean) {
+        renderer?.enableAutoRotation = enable
+    }
+
+    fun setAutoRotationSpeed(speed: Float) {
+        renderer?.autoRotationSpeed = speed
+    }
+
+    fun setShowLayers(show: Boolean) {
+        renderer?.showLayers = show
     }
 
     private val TOUCH_SCALE_FACTOR: Float = 100.0f / 320f

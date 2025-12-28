@@ -18,6 +18,7 @@ class SkinView3DRenderer : GLSurfaceView.Renderer {
     var angleX = 0f
     var bitmap: Bitmap? = null
     var enableAutoRotation = true
+    var autoRotationSpeed = 0.2f
     lateinit var steve: Steve
 
     override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
@@ -34,9 +35,19 @@ class SkinView3DRenderer : GLSurfaceView.Renderer {
         GLES31.glEnable(GLES31.GL_CULL_FACE)
 
         bitmap?.also {
-            steve = Steve(it)
+            steve = Steve(it).apply {
+                drawLayers = showLayers
+            }
         }
     }
+
+    var showLayers = true
+        set(value) {
+            field = value
+            if (::steve.isInitialized) {
+                steve.drawLayers = value
+            }
+        }
 
     private val rotationMatrix = FloatArray(16)
 
@@ -75,7 +86,7 @@ class SkinView3DRenderer : GLSurfaceView.Renderer {
         steve.draw(vPMatrix)
 
         if (enableAutoRotation) {
-            angleY += 0.2f
+            angleY += autoRotationSpeed
         }
     }
 
