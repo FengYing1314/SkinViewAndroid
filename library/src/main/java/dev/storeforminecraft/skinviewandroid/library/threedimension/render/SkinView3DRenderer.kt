@@ -17,11 +17,12 @@ class SkinView3DRenderer : GLSurfaceView.Renderer {
     var angleY = 0f
     var angleX = 0f
     var bitmap: Bitmap? = null
+    var enableAutoRotation = true
     lateinit var steve: Steve
 
     override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
-        // Set the background frame color
-        GLES31.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
+        // Set the background frame color to transparent
+        GLES31.glClearColor(0.0f, 0.0f, 0.0f, 0.0f)
         GLES31.glEnable(GLES31.GL_DEPTH_TEST)
 
 
@@ -73,7 +74,9 @@ class SkinView3DRenderer : GLSurfaceView.Renderer {
         // Draw shape
         steve.draw(vPMatrix)
 
-        angleY += 0.2f
+        if (enableAutoRotation) {
+            angleY += 0.2f
+        }
     }
 
     override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {

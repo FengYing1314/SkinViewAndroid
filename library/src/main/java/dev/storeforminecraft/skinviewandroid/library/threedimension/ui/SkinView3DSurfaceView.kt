@@ -2,6 +2,7 @@ package dev.storeforminecraft.skinviewandroid.library.threedimension.ui
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.PixelFormat
 import android.opengl.GLSurfaceView
 import android.view.MotionEvent
 import dev.storeforminecraft.skinviewandroid.library.threedimension.render.SkinView3DRenderer
@@ -12,6 +13,9 @@ class SkinView3DSurfaceView(context: Context) : GLSurfaceView(context) {
 
     init {
         setEGLContextClientVersion(3)
+        setEGLConfigChooser(8, 8, 8, 8, 16, 0)
+        holder.setFormat(PixelFormat.TRANSLUCENT)
+        setZOrderOnTop(true)
     }
 
     fun render(skin: Bitmap) {

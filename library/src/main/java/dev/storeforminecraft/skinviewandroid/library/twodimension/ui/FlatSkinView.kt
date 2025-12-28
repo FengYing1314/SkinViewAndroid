@@ -98,10 +98,8 @@ class FlatSkinView : View {
             )
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
-        if (canvas == null) return
 
         steveFrontTex.let { tex ->
 //            val offsetY: Float = tex.leftArm2nd?.calcLayerLeftOffset(tex.rightArm)?.toFloat() ?: 0f
